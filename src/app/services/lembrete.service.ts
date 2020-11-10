@@ -42,7 +42,7 @@ export class LembreteService {
   }
   // Esse método espera um id, e com base nesse id realizando uma requisição delete, ele deleta o lembrete mo BD
   deletaLembrete(id: number): Observable<Lembrete> {
-    const url = `${environment.lembretesApiUrl}/lembrete/${id}}`;
+    const url = `${environment.lembretesApiUrl}/lembrete/${id}`;
     return this.http.delete<Lembrete>(url);
     console.log("Cheguei aqui")
   }
