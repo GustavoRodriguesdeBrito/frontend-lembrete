@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { from, Observable } from 'rxjs';
+import { map } from "rxjs/operators";
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Lembrete } from '../interfaces/lembrete';
@@ -20,13 +21,39 @@ export class LembreteService {
 
   getListaLembretes(): Observable<Lembrete[]> {
     const url = `${environment.lembretesApiUrl}/lembrete`;
-    return this.http.get<Lembrete[]>(url);
+    return this.http.get<any[]>(url).pipe(
+      map((lembretes) => {
+        return lembretes.map((lembrete) => {
+          ///* Inserindo o valor do atributo '_id' gerado pelo MongoDB no campo normal 'id'
+          return {
+            id: lembrete._id,
+            conteudo: lembrete.conteudo,
+            dataCriado: lembrete.dataCriado,
+            prazoFinal: lembrete.prazoFinal,
+            prioridade: lembrete.prioridade,
+            arquivado: lembrete.arquivado,
+            modificado: lembrete.modificado
+          };
+        });
+      })
+    );
   }
 
   // Reorna um Observable de um único lembrte, passando o id como parametro
-  getLembrete(id: number): Observable<Lembrete> {
+  getLembrete(id: String): Observable<Lembrete> {
     const url = `${environment.lembretesApiUrl}/lembrete/${id}`;
-    return this.http.get<Lembrete>(url);
+    return this.http.get<any>(url).pipe(
+      map((lembrete) => {
+        return {
+          id: lembrete._id,
+          conteudo: lembrete.conteudo,
+          dataCriado: lembrete.dataCriado,
+          prazoFinal: lembrete.prazoFinal,
+          prioridade: lembrete.prioridade,
+          arquivado: lembrete.arquivado,
+          modificado: lembrete.modificado
+        };
+    }));
   }
 
   // Realiza uma requisição do tipo post para o endpoint lembrete, passando como parametro o Lembrete
@@ -41,9 +68,8 @@ export class LembreteService {
     return this.http.put<Lembrete>(url, lembrete);
   }
   // Esse método espera um id, e com base nesse id realizando uma requisição delete, ele deleta o lembrete mo BD
-  deletaLembrete(id: number): Observable<Lembrete> {
-    const url = `${environment.lembretesApiUrl}/lembrete/${id}}`;
+  deletaLembrete(id: String): Observable<Lembrete> {
+    const url = `${environment.lembretesApiUrl}/lembrete/${id}`;
     return this.http.delete<Lembrete>(url);
-    console.log("Cheguei aqui")
   }
 }

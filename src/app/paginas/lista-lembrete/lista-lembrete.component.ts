@@ -6,7 +6,7 @@ import { LembreteService } from '../../services/lembrete.service';
 @Component({
   selector: 'app-lista-lembrete',
   templateUrl: './lista-lembrete.component.html',
-  styleUrls: ['./lista-lembrete.component.css']
+  styleUrls: ['./lista-lembrete.component.css'],
 })
 export class ListaLembreteComponent implements OnInit {
   public lembretes: Lembrete[];
@@ -14,7 +14,7 @@ export class ListaLembreteComponent implements OnInit {
   // ViewChild para acessar os Métodos do ErrorMsgComponent
   @ViewChild(ErrorMsgComponent) errorMsgComponent: ErrorMsgComponent;
 
-  constructor(private lembreteService: LembreteService) { }
+  constructor(private lembreteService: LembreteService) {}
 
   ngOnInit(): void {
     this.getListaLembretes();
@@ -25,24 +25,34 @@ export class ListaLembreteComponent implements OnInit {
   // Ultilizando o this.lembreteService para acessar nossa service e o método getListaLembretes(), esse método nos retorna uma obserble que nos diponibiliza o método .subscribe. O subscribe valida a requisição, se ela for bem sucedida ele nos retorna um array de lembretes se não ele executa a mensagem de erro
 
   getListaLembretes() {
-    this.lembreteService.getListaLembretes()
-      .subscribe((lembretes: Lembrete[]) => {
+    this.lembreteService.getListaLembretes().subscribe(
+      (lembretes: Lembrete[]) => {
         this.lembretes = lembretes;
-      },()=> {this.errorMsgComponent.setError('Erro ao carregar Lembretes.')})
+      },
+      () => {
+        this.errorMsgComponent.setError('Erro ao carregar Lembretes.');
+      }
+    );
   }
 
   // Aqui a lógica é basicamente a mesma, porém ele chama o método getListaLembretes() e recarrega a lista, caso aconteça alguma requesição que não seja a "200" sucess ele da a mensagem de erro.
 
-   deletaLembrete(id: number) {
-    this.lembreteService.deletaLembrete(id)
-      .subscribe(() => {
+  deletaLembrete(id: String) {
+    this.lembreteService.deletaLembrete(id).subscribe(
+      () => {
         this.getListaLembretes();
-      },()=> {this.errorMsgComponent.setError('Erro ao deletar Lembretes.')})
-      console.log ("Cliquei aqui")
+      },
+      () => {
+        this.errorMsgComponent.setError('Erro ao deletar Lembretes.');
+      }
+    );
+  }
+
+  alteraArquivado(id: String) {
+    
   }
 
   existemLembretes(): boolean {
-    return this.lembretes && this.lembretes.length >0;
+    return this.lembretes && this.lembretes.length > 0;
   }
-
 }

@@ -27,11 +27,20 @@
     placeholder="Seu lembrete..." name="conteudo"
     #conteudo="ngModel"
     [(ngModel)]="lembrete.conteudo"
-    [class.is-ivalid]="!conteudo.valid && conteudo.touched"
+    [class.is-invalid]="!conteudo.valid && conteudo.touched"
     required>
     </textarea>
     <div *ngIf="!conteudo.valid && conteudo.touched" class="text-danger">
       Descreva o lembrete
     </div>
-    <button class="btn" style="background-color: blueviolet; color: white;" type="submit" [disabled]="!f.valid">Salvar</button>
   </div>
+  <div class="form-group">
+    <label for="prazo">Prazo final de realização</label>
+    <input type="date" name="prazo" id="prazo" #prazo="ngModel" [(ngModel)]="lembrete.prazoFinal" class="form-control">
+    <div *ngIf="!prazo.valid && prazo.touched" class="text-danger">
+      Insira um prazo final para o lembrete
+    </div>
+  </div>
+  <button class="btn" style="background-color: blueviolet; color: white;" type="submit" [disabled]="!f.valid">Salvar</button>
+</form>
+<!--TODO: figure out 'arquivado' and 'prioridade' attrs-->

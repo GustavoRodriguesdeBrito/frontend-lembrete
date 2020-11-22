@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Lembrete } from '..//..//interfaces/lembrete';
+import { Lembrete, prioridade } from '..//..//interfaces/lembrete';
 
 @Component({
   selector: 'app-from-lembrete',
@@ -15,9 +15,11 @@ export class FromLembreteComponent{
 
   @Input() lembrete: Lembrete = <Lembrete>{};
   @Output() outputLembrete: EventEmitter<Lembrete> = new EventEmitter();
+  public Prioridade = prioridade;
 
   // Responsaval por disparar o evento
   onSubmit() {
+    this.lembrete.arquivado = false; ///* Por padrão, o lembrete ainda não foi arquivado
     this.outputLembrete.emit(this.lembrete);
   }
 
