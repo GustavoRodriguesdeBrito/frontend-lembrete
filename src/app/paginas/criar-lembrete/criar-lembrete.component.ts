@@ -22,7 +22,7 @@ export class CriarLembreteComponent {
   addLembrete(lembrete: Lembrete){
     this.lembreteService.addLembrete(lembrete)
     .subscribe(
-      () => {this.router.navigateByUrl('/')},
+      () => {this.router.navigateByUrl('/lembrete')},
       () => {this.errorMsgComponent.setError('Falha ao adicionar lembrete')}
     );
   }
