@@ -29,9 +29,15 @@
             [class.badge-success]="lembrete.prioridade == 'BAIXA'"
           >
             PRIORIDADE {{ lembrete.prioridade }}
-          </span> | 
+          </span>
+          |
           <span class="badge badge-pill badge-primary">
-            PRAZO FINAL DA TAREFA: {{ lembrete.prazoFinal | date:'dd/MM/yyyy':'UTC' }}
+            PRAZO FINAL DA TAREFA:
+            {{ lembrete.prazoFinal | date: "dd/MM/yyyy":"UTC" }}
+          </span>
+          |
+          <span class="badge badge-pill badge-success" [ngClass]="{invisible: !lembrete.arquivado}">
+            ARQUIVADO
           </span>
         </div>
         <div class="card-body">
@@ -39,6 +45,19 @@
         </div>
         <div class="card-footer">
           <div class="text-right">
+            <div class="text-left arquivar-btn">
+              <button
+                type="button"
+                class="btn btn-sm"
+                [ngClass]="{
+                  'btn-success': lembrete.arquivado === false,
+                  'btn-danger': lembrete.arquivado === true
+                }"
+                (click)="alteraArquivado(lembrete.id, lembrete.arquivado)"
+              >
+                {{ lembrete.arquivado === true ? 'desarquivar' : 'arquivar' }}
+              </button>
+            </div>
             <button
               type="button"
               class="btn btn-primary btn-sm ml-1"

@@ -67,6 +67,11 @@ export class LembreteService {
     const url = `${environment.lembretesApiUrl}/lembrete/${lembrete.id}`;
     return this.http.put<Lembrete>(url, lembrete);
   }
+  ///* altera o estado de arquivamento de um lembrete específico
+  alteraArquivado(id: String, arquivado: Boolean): Observable<Lembrete> {
+    const url = `${environment.lembretesApiUrl}/lembrete/${id}`;
+    return this.http.patch<Lembrete>(url, {arquivado});
+  }
   // Esse método espera um id, e com base nesse id realizando uma requisição delete, ele deleta o lembrete mo BD
   deletaLembrete(id: String): Observable<Lembrete> {
     const url = `${environment.lembretesApiUrl}/lembrete/${id}`;
