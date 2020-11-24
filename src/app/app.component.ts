@@ -8,4 +8,8 @@ import { ErrorMsgComponent } from './compartilhado/error-msg/error-msg.component
 })
 export class AppComponent {
   title = 'Lembretes';
+  isAuthenticated: boolean;
+
+  logout(){}
 }
+

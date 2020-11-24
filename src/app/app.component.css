@@ -1,4 +1,6 @@
 nav {
   background-color: blueviolet;
   color: white;
+  justify-content: space-between;
+  align-items: center;
 }

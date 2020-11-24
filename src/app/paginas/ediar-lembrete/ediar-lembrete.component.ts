@@ -38,14 +38,11 @@ export class EdiarLembreteComponent {
     );
   }
 
-  atualizaLembrete(lembrete: Lembrete): void {
-    this.lembreteService.atualizaLembrete(lembrete).subscribe(
-      () => {
-        this.router.navigateByUrl('/');
-      },
-      (): void => {
-        this.errorMsgComponent.setError('Falha ao atualizar lembrete');
-      }
+  atualizaLembrete(lembrete: Lembrete): void{
+    this.lembreteService.atualizaLembrete(lembrete)
+    .subscribe(
+      () => {this.router.navigateByUrl('/lembrete')},
+      (): void => {this.errorMsgComponent.setError('Falha ao atualizar lembrete')}
     );
   }
 }
