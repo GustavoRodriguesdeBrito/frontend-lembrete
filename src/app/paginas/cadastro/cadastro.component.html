@@ -1,32 +1,55 @@
+<app-error-msg></app-error-msg>
 <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
   <mat-card class="box">
     <mat-card-header>
       <mat-card-title>Cadastro</mat-card-title>
     </mat-card-header>
 
-    <form class="example-form">
-
+    <form class="example-form" #form="ngForm">
       <mat-card-content>
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Usuario">
-        </mat-form-field>
-
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Email">
-        </mat-form-field>
-
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Confirme seu Email">
-        </mat-form-field>
-
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Senha">
-        </mat-form-field>
-
+        <div class="form-group">
+          <mat-form-field class="example-full-width">
+            <input
+              matInput
+              placeholder="Nome de usuário"
+              #nome="ngModel"
+              [(ngModel)]="usuario.nome"
+              name="nome"
+              [class.is-invalid]="!nome.valid && nome.touched"
+              required
+            />
+          </mat-form-field>
+          <div *ngIf="!nome.valid && nome.touched" class="text-danger">
+            Digite o nome de usuário
+          </div>
+        </div>
+        <div class="form-group">
+          <mat-form-field class="example-full-width">
+            <input
+              matInput
+              type="password"
+              placeholder="Senha"
+              #senha="ngModel"
+              [(ngModel)]="usuario.senha"
+              name="senha"
+              [class.is-invalid]="!senha.valid && senha.touched"
+              required
+            />
+          </mat-form-field>
+          <div *ngIf="!senha.valid && senha.touched" class="text-danger">
+            Digite a senha
+          </div>
+        </div>
       </mat-card-content>
 
-      <button mat-stroked-button color="accent" class="btn-block">Cadastrar</button>
-
+      <button
+        mat-stroked-button
+        color="accent"
+        class="btn-block"
+        (click)="cadastrarUsuario()"
+      >
+        Cadastrar
+      </button>
     </form>
   </mat-card>
 </div>

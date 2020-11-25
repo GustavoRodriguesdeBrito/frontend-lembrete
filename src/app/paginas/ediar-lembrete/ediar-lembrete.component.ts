@@ -3,7 +3,6 @@ import { ErrorMsgComponent } from '..//..//compartilhado/error-msg/error-msg.com
 import { LembreteService } from '..//..//services/lembrete.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Lembrete } from '..//..//interfaces/lembrete';
-import * as moment from 'moment';
 import { DatePipe } from '@angular/common';
 
 @Component({

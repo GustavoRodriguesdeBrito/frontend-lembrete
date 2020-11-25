@@ -16,8 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './angular-material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CadastroComponent } from './paginas/cadastro/cadastro.component';
-
-
+import { authInterceptorProviders } from '../app/helpers/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -41,7 +40,7 @@ import { CadastroComponent } from './paginas/cadastro/cadastro.component';
     CommonModule,
     FlexLayoutModule
   ],
-  providers: [],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

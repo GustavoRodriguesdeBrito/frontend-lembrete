@@ -1,15 +1,31 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component,OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { ErrorMsgComponent } from './compartilhado/error-msg/error-msg.component';
+import { UsuarioService } from './services/usuario.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'Lembretes';
   isAuthenticated: boolean;
-
-  logout(){}
+ constructor(private usuarioSvc: UsuarioService, private router: Router) {}
+  ngOnInit() {
+    let token = this.usuarioSvc.getToken();
+    if (token) {
+      this.isAuthenticated = true;
+      this.router.navigateByUrl('lembrete');
+    } else {
+      this.isAuthenticated = false;
+      this.router.navigateByUrl('');
+    }
+  }
+  
+  logout(){
+    this.usuarioSvc.logoutUsuario();
+    window.location.reload();
+  }
 }
 

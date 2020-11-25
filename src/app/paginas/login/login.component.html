@@ -1,3 +1,4 @@
+<app-error-msg></app-error-msg>
 <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
 
   <mat-card class="box">
@@ -5,18 +6,40 @@
       <mat-card-title>Login</mat-card-title>
     </mat-card-header>
 
-    <form class="example-form">
+    <form class="example-form" #formLogin="ngForm">
       <mat-card-content>
+        <div class="form-group">
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Usuario">
+          <input matInput placeholder="Nome de usuário"
+          #nome="ngModel"
+          [(ngModel)]="usuario.nome"
+          name="nome"
+          [class.is-invalid]="!nome.valid && nome.touched"
+          required>
         </mat-form-field>
+        <div *ngIf="!nome.valid && nome.touched" class="text-danger">
+          Digite o nome de usuário
+        </div>
+      </div>
 
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Senha">
-        </mat-form-field>
+        <div class="form-group">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Senha"
+            type="password"
+              placeholder="Senha"
+              #senha="ngModel"
+              [(ngModel)]="usuario.senha"
+              name="senha"
+              [class.is-invalid]="!senha.valid && senha.touched"
+              required>
+          </mat-form-field>
+          <div *ngIf="!senha.valid && senha.touched" class="text-danger">
+            Digite a senha
+          </div>
+        </div>
         <a [routerLink]="['/cadastro']" routerLinkActive="router-link-active" >Se não tem cadastro clique aqui</a>
       </mat-card-content>
-      <button mat-stroked-button color="accent" class="btn-block">Login</button>
+      <button mat-stroked-button color="accent" class="btn-block" (click)="fazerLogin()">Login</button>
     </form>
   </mat-card>
 

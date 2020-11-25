@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { ErrorMsgComponent } from 'src/app/compartilhado/error-msg/error-msg.component';
+import { UsuarioService } from 'src/app/services/usuario.service';
 import { Lembrete } from '../../interfaces/lembrete';
 import { LembreteService } from '../../services/lembrete.service';
 
@@ -14,10 +16,14 @@ export class ListaLembreteComponent implements OnInit {
   // ViewChild para acessar os Métodos do ErrorMsgComponent
   @ViewChild(ErrorMsgComponent) errorMsgComponent: ErrorMsgComponent;
 
-  constructor(private lembreteService: LembreteService) {}
+  constructor(private lembreteService: LembreteService, private usuarioSvc: UsuarioService, private router: Router) {}
 
   ngOnInit(): void {
-    this.getListaLembretes();
+    if(this.usuarioSvc.getToken()) {
+      this.getListaLembretes();
+    } else {
+      this.router.navigateByUrl('');
+    }
   }
 
   // Os métodos do LembreteService retornam um Observable, aqui vamos ASSINAR esse Observeble, e assim que os dados são retornados pela api e chegarem até o cliente, ele dispara um callback que atribui os dados ao atributo Lembrete da classe.
