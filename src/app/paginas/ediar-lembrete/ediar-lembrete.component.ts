@@ -31,8 +31,11 @@ export class EdiarLembreteComponent {
         lembrete.prazoFinal = new DatePipe('en-US').transform(lembrete.prazoFinal, 'yyyy-MM-dd','+00:00');
         this.lembrete = lembrete;
       },
-      () => {
+      (err) => {
         this.errorMsgComponent.setError('Falha ao buscar lembrete');
+        if (err.status === 401) {
+          this.router.navigateByUrl('');
+        }
       }
     );
   }
@@ -41,7 +44,12 @@ export class EdiarLembreteComponent {
     this.lembreteService.atualizaLembrete(lembrete)
     .subscribe(
       () => {this.router.navigateByUrl('/lembrete')},
-      (): void => {this.errorMsgComponent.setError('Falha ao atualizar lembrete')}
+      (err) => {
+        this.errorMsgComponent.setError('Falha ao atualizar lembrete');
+        if (err.status === 401) {
+          this.router.navigateByUrl('');
+        }
+      }
     );
   }
 }

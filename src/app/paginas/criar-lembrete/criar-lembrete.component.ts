@@ -24,7 +24,12 @@ export class CriarLembreteComponent implements OnInit{
     this.lembreteService.addLembrete(lembrete)
     .subscribe(
       () => {this.router.navigateByUrl('lembrete')},
-      () => {this.errorMsgComponent.setError('Falha ao adicionar lembrete')}
+      (err) => {
+        this.errorMsgComponent.setError('Falha ao adicionar lembrete');
+        if (err.status === 401) {
+          this.router.navigateByUrl('');
+        }
+      }
     );
   }
 

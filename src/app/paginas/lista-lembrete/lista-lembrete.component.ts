@@ -35,8 +35,11 @@ export class ListaLembreteComponent implements OnInit {
       (lembretes: Lembrete[]) => {
         this.lembretes = lembretes;
       },
-      () => {
+      (err) => {
         this.errorMsgComponent.setError('Erro ao carregar Lembretes.');
+        if (err.status === 401) {
+          this.router.navigateByUrl('');
+        }
       }
     );
   }
@@ -48,8 +51,11 @@ export class ListaLembreteComponent implements OnInit {
       () => {
         this.getListaLembretes();
       },
-      () => {
+      (err) => {
         this.errorMsgComponent.setError('Erro ao deletar Lembretes.');
+        if (err.status === 401) {
+          this.router.navigateByUrl('');
+        }
       }
     );
   }
@@ -63,10 +69,13 @@ export class ListaLembreteComponent implements OnInit {
       () => {
         lemb.arquivado = !lemb.arquivado;
       },
-      () => {
+      (err) => {
         this.errorMsgComponent.setError(
           'Erro ao arquivar/desarquivar lembrete'
         );
+        if (err.status === 401) {
+          this.router.navigateByUrl('');
+        }
       }
     );
   }
