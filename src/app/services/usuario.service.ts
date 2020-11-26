@@ -28,11 +28,20 @@ export class UsuarioService {
   salvarToken(token: string) {
     window.sessionStorage.removeItem("TOKEN");
     window.sessionStorage.setItem("TOKEN", token);
-    console.log("token in sessionStorage",window.sessionStorage.getItem("TOKEN"));
+    //console.log("token in sessionStorage",window.sessionStorage.getItem("TOKEN"));
   }
 
   getToken(): string {
     return window.sessionStorage.getItem("TOKEN");
+  }
+
+  salvarUsuario(nome: string) {
+    window.sessionStorage.removeItem("USER");
+    window.sessionStorage.setItem("USER", nome);
+  }
+
+  getUsuario(): string {
+    return window.sessionStorage.getItem("USER");
   }
 }
 

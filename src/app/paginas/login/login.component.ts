@@ -18,9 +18,10 @@ export class LoginComponent {
   fazerLogin() {
     this.usuarioSvc.loginUsuario(this.usuario).subscribe(
       (result) => {
-        //!console.log("OK: ", result);
+        //console.log("OK: ", result);
         this.usuarioSvc.salvarToken(result.token);
-        //!console.log(window.sessionStorage);
+        this.usuarioSvc.salvarUsuario(result.nome);
+        //console.log(window.sessionStorage);
         this.router.navigateByUrl('lembrete');
       },
       (err) => {

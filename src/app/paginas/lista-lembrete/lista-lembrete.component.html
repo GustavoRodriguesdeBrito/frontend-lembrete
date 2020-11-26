@@ -39,6 +39,9 @@
           <span class="badge badge-pill badge-success" [ngClass]="{invisible: !lembrete.arquivado}">
             ARQUIVADO
           </span>
+          <span class="float-right">
+            {{ lembrete.dataCriado | date: "dd/MM/yyyy HH:mm":"UTC" }}
+          </span>
         </div>
         <div class="card-body">
           <p class="card-text">{{ lembrete.conteudo }}</p>

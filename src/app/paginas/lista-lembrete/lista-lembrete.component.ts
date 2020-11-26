@@ -58,7 +58,7 @@ export class ListaLembreteComponent implements OnInit {
     let lemb = this.lembretes.find((lembrete) => {
       return lembrete.id === id;
     });
-    console.log(lemb, id, arquivado,"\nvalor futuro:", !lemb.arquivado);
+    //console.log(lemb, id, arquivado,"\nvalor futuro:", !lemb.arquivado);
     this.lembreteService.alteraArquivado(id, !lemb.arquivado).subscribe(
       () => {
         lemb.arquivado = !lemb.arquivado;

@@ -11,11 +11,14 @@ import { UsuarioService } from './services/usuario.service';
 export class AppComponent implements OnInit{
   title = 'Lembretes';
   isAuthenticated: boolean;
- constructor(private usuarioSvc: UsuarioService, private router: Router) {}
+  nome: string;
+  constructor(private usuarioSvc: UsuarioService, private router: Router) {}
+
   ngOnInit() {
     let token = this.usuarioSvc.getToken();
     if (token) {
       this.isAuthenticated = true;
+      this.nome = this.usuarioSvc.getUsuario();
       this.router.navigateByUrl('lembrete');
     } else {
       this.isAuthenticated = false;
