@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Usuario } from '../interfaces/usuario';
 import { environment } from '../../environments/environment';
 
@@ -9,6 +9,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class UsuarioService {
+  usuarioAtual = new Subject<string>();
   constructor(private http: HttpClient) {}
 
   cadastrarUsuario(usuario: Usuario): Observable<any> {
@@ -38,10 +39,15 @@ export class UsuarioService {
   salvarUsuario(nome: string) {
     window.sessionStorage.removeItem("USER");
     window.sessionStorage.setItem("USER", nome);
+    this.usuarioAtual.next(window.sessionStorage.getItem("USER"));
   }
 
   getUsuario(): string {
     return window.sessionStorage.getItem("USER");
+  }
+
+  getUsuarioObservable() {
+    return this.usuarioAtual.asObservable();
   }
 }
 

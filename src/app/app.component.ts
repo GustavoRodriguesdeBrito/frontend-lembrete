@@ -1,6 +1,5 @@
-import { Component,OnInit, ViewChild } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ErrorMsgComponent } from './compartilhado/error-msg/error-msg.component';
 import { UsuarioService } from './services/usuario.service';
 
 @Component({
@@ -15,6 +14,13 @@ export class AppComponent implements OnInit{
   constructor(private usuarioSvc: UsuarioService, private router: Router) {}
 
   ngOnInit() {
+    this.usuarioSvc.getUsuarioObservable().subscribe((value) => {
+        ///* caso haja um usuário logado, pegue o nome e mostre-o na barra no topo da tela
+        if(value) {
+          this.isAuthenticated = true;
+          this.nome = value;
+        }
+    });
     let token = this.usuarioSvc.getToken();
     if (token) {
       this.isAuthenticated = true;
