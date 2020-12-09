@@ -24,6 +24,7 @@ export class UsuarioService {
 
   logoutUsuario(): void {
     window.sessionStorage.clear();
+    this.usuarioAtual.next(window.sessionStorage.getItem("USER"));
   }
 
   salvarToken(token: string) {

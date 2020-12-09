@@ -22,6 +22,7 @@ export class ListaLembreteComponent implements OnInit {
     if(this.usuarioSvc.getToken()) {
       this.getListaLembretes();
     } else {
+      this.usuarioSvc.logoutUsuario();
       this.router.navigateByUrl('');
     }
   }
@@ -38,6 +39,7 @@ export class ListaLembreteComponent implements OnInit {
       (err) => {
         this.errorMsgComponent.setError('Erro ao carregar Lembretes.');
         if (err.status === 401) {
+          this.usuarioSvc.logoutUsuario();
           this.router.navigateByUrl('');
         }
       }
@@ -54,6 +56,7 @@ export class ListaLembreteComponent implements OnInit {
       (err) => {
         this.errorMsgComponent.setError('Erro ao deletar Lembretes.');
         if (err.status === 401) {
+          this.usuarioSvc.logoutUsuario();
           this.router.navigateByUrl('');
         }
       }
@@ -74,6 +77,7 @@ export class ListaLembreteComponent implements OnInit {
           'Erro ao arquivar/desarquivar lembrete'
         );
         if (err.status === 401) {
+          this.usuarioSvc.logoutUsuario();
           this.router.navigateByUrl('');
         }
       }

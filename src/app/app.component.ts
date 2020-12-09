@@ -19,6 +19,8 @@ export class AppComponent implements OnInit{
         if(value) {
           this.isAuthenticated = true;
           this.nome = value;
+        } else {
+          this.isAuthenticated = false;
         }
     });
     let token = this.usuarioSvc.getToken();

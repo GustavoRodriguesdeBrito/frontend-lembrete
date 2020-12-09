@@ -4,6 +4,7 @@ import { LembreteService } from '..//..//services/lembrete.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Lembrete } from '..//..//interfaces/lembrete';
 import { DatePipe } from '@angular/common';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-ediar-lembrete',
@@ -18,6 +19,7 @@ export class EdiarLembreteComponent {
 
   constructor(
     private lembreteService: LembreteService,
+    private usuarioSvc: UsuarioService,
     private router: Router,
     private activatedRout: ActivatedRoute
   ) {
@@ -34,6 +36,7 @@ export class EdiarLembreteComponent {
       (err) => {
         this.errorMsgComponent.setError('Falha ao buscar lembrete');
         if (err.status === 401) {
+          this.usuarioSvc.logoutUsuario();
           this.router.navigateByUrl('');
         }
       }
