@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 import { ErrorMsgComponent } from 'src/app/compartilhado/error-msg/error-msg.component';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Lembrete } from '../../interfaces/lembrete';
@@ -82,6 +83,11 @@ export class ListaLembreteComponent implements OnInit {
         }
       }
     );
+  }
+
+  lembreteExpirado(prazo: Date): boolean {
+    ///* se a diferença entre a data prazo e a data atual for menor que zero, retorne 'true'
+    return (moment.utc(prazo).diff(moment.utc().utcOffset("+00:00"), "days", true) < 0);
   }
 
   existemLembretes(): boolean {
